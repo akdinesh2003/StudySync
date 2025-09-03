@@ -304,13 +304,13 @@ export default function SubjectDetailPage() {
             <DialogTitle>{dialogState?.mode === 'add' ? 'Add' : 'Edit'} {dialogState?.type}</DialogTitle>
           </DialogHeader>
            {dialogState?.type === 'chapter' && (
-             <Form_Chapter defaultValues={dialogState.mode === 'edit' ? dialogState.data as Chapter : undefined} onSubmit={handleFormSubmit} />
+             <Form_Chapter defaultValues={dialogState.mode === 'edit' ? dialogState.data as Chapter : { title: '' }} onSubmit={handleFormSubmit} />
            )}
            {dialogState?.type === 'subtopic' && (
-             <Form_SubTopic defaultValues={dialogState.mode === 'edit' ? dialogState.data as SubTopic : undefined} onSubmit={handleFormSubmit} />
+             <Form_SubTopic defaultValues={dialogState.mode === 'edit' ? dialogState.data as SubTopic : { title: '', priority: 'medium' }} onSubmit={handleFormSubmit} />
            )}
            {dialogState?.type === 'reference' && (
-             <Form_Reference defaultValues={dialogState.mode === 'edit' ? dialogState.data as Reference : undefined} onSubmit={handleFormSubmit} />
+             <Form_Reference defaultValues={dialogState.mode === 'edit' ? dialogState.data as Reference : { title: '', type: 'link', content: '' }} onSubmit={handleFormSubmit} />
            )}
         </DialogContent>
       </Dialog>
@@ -318,17 +318,17 @@ export default function SubjectDetailPage() {
   );
 }
 
-const Form_Chapter = ({ defaultValues, onSubmit }: { defaultValues?: Chapter, onSubmit: (v: any) => void}) => {
+const Form_Chapter = ({ defaultValues, onSubmit }: { defaultValues?: Partial<Chapter>, onSubmit: (v: any) => void}) => {
   const form = useForm<z.infer<typeof chapterSchema>>({ resolver: zodResolver(chapterSchema), defaultValues });
   return <Form {...form}><form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'><FormField control={form.control} name="title" render={({ field }) => <FormItem><FormLabel>Chapter Title</FormLabel><FormControl><Input {...field}/></FormControl><FormMessage /></FormItem>} /><Button type="submit">Save</Button></form></Form>;
 }
 
-const Form_SubTopic = ({ defaultValues, onSubmit }: { defaultValues?: SubTopic, onSubmit: (v: any) => void}) => {
+const Form_SubTopic = ({ defaultValues, onSubmit }: { defaultValues?: Partial<SubTopic>, onSubmit: (v: any) => void}) => {
   const form = useForm<z.infer<typeof subTopicSchema>>({ resolver: zodResolver(subTopicSchema), defaultValues });
   return <Form {...form}><form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'><FormField control={form.control} name="title" render={({ field }) => <FormItem><FormLabel>Sub-Topic Title</FormLabel><FormControl><Input {...field}/></FormControl><FormMessage /></FormItem>} /><FormField control={form.control} name="priority" render={({ field }) => <FormItem><FormLabel>Priority</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue/></SelectTrigger></FormControl><SelectContent><SelectItem value="low">Low</SelectItem><SelectItem value="medium">Medium</SelectItem><SelectItem value="high">High</SelectItem></SelectContent></Select><FormMessage /></FormItem>} /><Button type="submit">Save</Button></form></Form>;
 }
 
-const Form_Reference = ({ defaultValues, onSubmit }: { defaultValues?: Reference, onSubmit: (v: any) => void}) => {
+const Form_Reference = ({ defaultValues, onSubmit }: { defaultValues?: Partial<Reference>, onSubmit: (v: any) => void}) => {
   const form = useForm<z.infer<typeof referenceSchema>>({ resolver: zodResolver(referenceSchema), defaultValues: defaultValues ?? { type: 'link' } });
   const type = form.watch('type');
   return <Form {...form}><form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'><FormField control={form.control} name="title" render={({ field }) => <FormItem><FormLabel>Title</FormLabel><FormControl><Input {...field}/></FormControl><FormMessage /></FormItem>} /><FormField control={form.control} name="type" render={({ field }) => <FormItem><FormLabel>Type</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue/></SelectTrigger></FormControl><SelectContent><SelectItem value="link">Link</SelectItem><SelectItem value="note">Note</SelectItem></SelectContent></Select><FormMessage /></FormItem>} /><FormField control={form.control} name="content" render={({ field }) => <FormItem><FormLabel>{type === 'link' ? 'URL' : 'Note'}</FormLabel><FormControl>{type === 'link' ? <Input {...field}/> : <Textarea {...field}/>}</FormControl><FormMessage /></FormItem>} /><Button type="submit">Save</Button></form></Form>;
