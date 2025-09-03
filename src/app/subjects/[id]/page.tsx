@@ -158,126 +158,126 @@ export default function SubjectDetailPage() {
       <Accordion type="multiple" className="w-full space-y-4">
         {subject.chapters.map(chapter => (
           <AccordionItem key={chapter.id} value={chapter.id} className="border-none">
-            <Card>
-              <AccordionTrigger className="p-6 hover:no-underline">
-                <div className="flex justify-between items-center w-full">
-                  <div className="flex items-center gap-3">
-                    <BookCopy className="w-5 h-5 text-primary" />
-                    <h3 className="font-semibold text-lg">{chapter.title}</h3>
+             <AlertDialog>
+              <Card>
+                <AccordionTrigger className="p-6 hover:no-underline">
+                  <div className="flex justify-between items-center w-full">
+                    <div className="flex items-center gap-3">
+                      <BookCopy className="w-5 h-5 text-primary" />
+                      <h3 className="font-semibold text-lg">{chapter.title}</h3>
+                    </div>
+                    <div className='flex items-center gap-2'>
+                      <ChevronDown className="h-5 w-5 shrink-0 transition-transform duration-200" />
+                    </div>
                   </div>
-                  <div className='flex items-center gap-2'>
-                    <ChevronDown className="h-5 w-5 shrink-0 transition-transform duration-200" />
-                  </div>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-6 pb-6">
-                 <Tabs defaultValue="subtopics" className="w-full">
-                  <div className='flex justify-between items-center border-b mb-4'>
-                    <TabsList>
-                      <TabsTrigger value="subtopics">Sub-Topics</TabsTrigger>
-                      <TabsTrigger value="references">Reference Vault</TabsTrigger>
-                    </TabsList>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" onClick={(e) => e.stopPropagation()}><MoreVertical className="h-4 w-4" /></Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => setDialogState({type: 'chapter', mode: 'edit', data: chapter })}>
-                          <Edit className="mr-2 h-4 w-4"/> Edit Chapter
-                        </DropdownMenuItem>
-                        <AlertDialogTrigger asChild>
-                           <DropdownMenuItem className='text-destructive focus:text-destructive'>
-                            <Trash2 className="mr-2 h-4 w-4"/> Delete Chapter
-                           </DropdownMenuItem>
-                        </AlertDialogTrigger>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-6">
+                  <Tabs defaultValue="subtopics" className="w-full">
+                    <div className='flex justify-between items-center border-b mb-4'>
+                      <TabsList>
+                        <TabsTrigger value="subtopics">Sub-Topics</TabsTrigger>
+                        <TabsTrigger value="references">Reference Vault</TabsTrigger>
+                      </TabsList>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" onClick={(e) => e.stopPropagation()}><MoreVertical className="h-4 w-4" /></Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuItem onClick={() => setDialogState({type: 'chapter', mode: 'edit', data: chapter })}>
+                            <Edit className="mr-2 h-4 w-4"/> Edit Chapter
+                          </DropdownMenuItem>
+                          <AlertDialogTrigger asChild>
+                            <DropdownMenuItem className='text-destructive focus:text-destructive'>
+                              <Trash2 className="mr-2 h-4 w-4"/> Delete Chapter
+                            </DropdownMenuItem>
+                          </AlertDialogTrigger>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
 
-                  <TabsContent value="subtopics">
-                    <div className="space-y-2">
-                      {chapter.subTopics.length > 0 ? chapter.subTopics.map(subTopic => (
-                        <div key={subTopic.id} className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50">
-                          <Checkbox
-                            checked={subTopic.completed}
-                            onCheckedChange={(checked) => updateSubTopic(subject.id, chapter.id, subTopic.id, { completed: !!checked })}
-                            id={`subtopic-${subTopic.id}`}
-                          />
-                          <label htmlFor={`subtopic-${subTopic.id}`} className={cn("flex-1", subTopic.completed && "line-through text-muted-foreground")}>
-                            {subTopic.title}
-                          </label>
-                          <Badge variant={priorityBadgeVariant[subTopic.priority]}>{subTopic.priority}</Badge>
-                          <Button variant="ghost" size="icon" className='h-8 w-8' onClick={() => setPomodoroState({isOpen: true, subTopicId: subTopic.id, chapterId: chapter.id})}>
-                            <PlayCircle className="h-5 w-5"/>
-                          </Button>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild><Button variant="ghost" size="icon" className='h-8 w-8'><MoreVertical className="h-4 w-4" /></Button></DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem onClick={() => setDialogState({type: 'subtopic', mode: 'edit', data: subTopic, parentId: chapter.id})}>
-                                <Edit className="mr-2 h-4 w-4"/> Edit
-                              </DropdownMenuItem>
-                               <AlertDialogTrigger asChild>
-                                  <DropdownMenuItem className='text-destructive focus:text-destructive'>
-                                      <Trash2 className="mr-2 h-4 w-4"/> Delete
+                    <TabsContent value="subtopics">
+                      <div className="space-y-2">
+                        {chapter.subTopics.length > 0 ? chapter.subTopics.map(subTopic => (
+                           <AlertDialog key={subTopic.id}>
+                            <div className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50">
+                              <Checkbox
+                                checked={subTopic.completed}
+                                onCheckedChange={(checked) => updateSubTopic(subject.id, chapter.id, subTopic.id, { completed: !!checked })}
+                                id={`subtopic-${subTopic.id}`}
+                              />
+                              <label htmlFor={`subtopic-${subTopic.id}`} className={cn("flex-1", subTopic.completed && "line-through text-muted-foreground")}>
+                                {subTopic.title}
+                              </label>
+                              <Badge variant={priorityBadgeVariant[subTopic.priority]}>{subTopic.priority}</Badge>
+                              <Button variant="ghost" size="icon" className='h-8 w-8' onClick={() => setPomodoroState({isOpen: true, subTopicId: subTopic.id, chapterId: chapter.id})}>
+                                <PlayCircle className="h-5 w-5"/>
+                              </Button>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild><Button variant="ghost" size="icon" className='h-8 w-8'><MoreVertical className="h-4 w-4" /></Button></DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuItem onClick={() => setDialogState({type: 'subtopic', mode: 'edit', data: subTopic, parentId: chapter.id})}>
+                                    <Edit className="mr-2 h-4 w-4"/> Edit
                                   </DropdownMenuItem>
-                               </AlertDialogTrigger>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                          <AlertDialog>
-                            <AlertDialogContent>
-                              <AlertDialogHeader><AlertDialogTitle>Are you sure?</AlertDialogTitle><AlertDialogDescription>This action cannot be undone. This will permanently delete this sub-topic.</AlertDialogDescription></AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={() => deleteSubTopic(subject.id, chapter.id, subTopic.id)}>Delete</AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
+                                  <AlertDialogTrigger asChild>
+                                      <DropdownMenuItem className='text-destructive focus:text-destructive'>
+                                          <Trash2 className="mr-2 h-4 w-4"/> Delete
+                                      </DropdownMenuItem>
+                                  </AlertDialogTrigger>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                              <AlertDialogContent>
+                                <AlertDialogHeader><AlertDialogTitle>Are you sure?</AlertDialogTitle><AlertDialogDescription>This action cannot be undone. This will permanently delete this sub-topic.</AlertDialogDescription></AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => deleteSubTopic(subject.id, chapter.id, subTopic.id)}>Delete</AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </div>
                           </AlertDialog>
-                        </div>
-                      )) : <p className="text-muted-foreground text-sm p-4 text-center">No sub-topics yet.</p>}
-                    </div>
-                     <Button variant="outline" size="sm" className="mt-4" onClick={() => setDialogState({ type: 'subtopic', mode: 'add', parentId: chapter.id})}>
-                      <Plus className="mr-2 h-4 w-4" /> Add Sub-Topic
-                    </Button>
-                  </TabsContent>
-                  <TabsContent value="references">
-                    <div className="space-y-2">
-                      {chapter.references.length > 0 ? chapter.references.map(ref => (
-                        <div key={ref.id} className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50">
-                           {ref.type === 'link' ? <LinkIcon className="h-4 w-4 text-muted-foreground"/> : <FileText className="h-4 w-4 text-muted-foreground"/>}
-                           <a href={ref.type === 'link' ? ref.content : undefined} target="_blank" rel="noopener noreferrer" className={cn("flex-1", ref.type === 'link' && "hover:underline")}>
-                            {ref.title}
-                           </a>
-                           <DropdownMenu>
-                            <DropdownMenuTrigger asChild><Button variant="ghost" size="icon" className='h-8 w-8'><MoreVertical className="h-4 w-4" /></Button></DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem onClick={() => setDialogState({type: 'reference', mode: 'edit', data: ref, parentId: chapter.id})}>
-                                <Edit className="mr-2 h-4 w-4"/> Edit
-                              </DropdownMenuItem>
-                               <AlertDialogTrigger asChild>
-                                <DropdownMenuItem className='text-destructive focus:text-destructive'>
-                                  <Trash2 className="mr-2 h-4 w-4"/> Delete
-                                </DropdownMenuItem>
-                               </AlertDialogTrigger>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                          <AlertDialog>
-                            <AlertDialogContent>
-                              <AlertDialogHeader><AlertDialogTitle>Are you sure?</AlertDialogTitle><AlertDialogDescription>This action cannot be undone. This will permanently delete this reference.</AlertDialogDescription></AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={() => deleteReference(subject.id, chapter.id, ref.id)}>Delete</AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
+                        )) : <p className="text-muted-foreground text-sm p-4 text-center">No sub-topics yet.</p>}
+                      </div>
+                      <Button variant="outline" size="sm" className="mt-4" onClick={() => setDialogState({ type: 'subtopic', mode: 'add', parentId: chapter.id})}>
+                        <Plus className="mr-2 h-4 w-4" /> Add Sub-Topic
+                      </Button>
+                    </TabsContent>
+                    <TabsContent value="references">
+                      <div className="space-y-2">
+                        {chapter.references.length > 0 ? chapter.references.map(ref => (
+                          <AlertDialog key={ref.id}>
+                            <div className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50">
+                              {ref.type === 'link' ? <LinkIcon className="h-4 w-4 text-muted-foreground"/> : <FileText className="h-4 w-4 text-muted-foreground"/>}
+                              <a href={ref.type === 'link' ? ref.content : undefined} target="_blank" rel="noopener noreferrer" className={cn("flex-1", ref.type === 'link' && "hover:underline")}>
+                                {ref.title}
+                              </a>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild><Button variant="ghost" size="icon" className='h-8 w-8'><MoreVertical className="h-4 w-4" /></Button></DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuItem onClick={() => setDialogState({type: 'reference', mode: 'edit', data: ref, parentId: chapter.id})}>
+                                    <Edit className="mr-2 h-4 w-4"/> Edit
+                                  </DropdownMenuItem>
+                                  <AlertDialogTrigger asChild>
+                                    <DropdownMenuItem className='text-destructive focus:text-destructive'>
+                                      <Trash2 className="mr-2 h-4 w-4"/> Delete
+                                    </DropdownMenuItem>
+                                  </AlertDialogTrigger>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                              <AlertDialogContent>
+                                <AlertDialogHeader><AlertDialogTitle>Are you sure?</AlertDialogTitle><AlertDialogDescription>This action cannot be undone. This will permanently delete this reference.</AlertDialogDescription></AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => deleteReference(subject.id, chapter.id, ref.id)}>Delete</AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </div>
                           </AlertDialog>
-                        </div>
-                      )) : <p className="text-muted-foreground text-sm p-4 text-center">No references yet.</p>}
-                    </div>
-                    <Button variant="outline" size="sm" className="mt-4" onClick={() => setDialogState({ type: 'reference', mode: 'add', parentId: chapter.id})}>
-                      <Plus className="mr-2 h-4 w-4" /> Add Reference
-                    </Button>
-                  </TabsContent>
-                </Tabs>
-                <AlertDialog>
+                        )) : <p className="text-muted-foreground text-sm p-4 text-center">No references yet.</p>}
+                      </div>
+                      <Button variant="outline" size="sm" className="mt-4" onClick={() => setDialogState({ type: 'reference', mode: 'add', parentId: chapter.id})}>
+                        <Plus className="mr-2 h-4 w-4" /> Add Reference
+                      </Button>
+                    </TabsContent>
+                  </Tabs>
                   <AlertDialogContent>
                     <AlertDialogHeader><AlertDialogTitle>Are you sure?</AlertDialogTitle><AlertDialogDescription>This action cannot be undone. This will permanently delete this chapter and all its sub-topics and references.</AlertDialogDescription></AlertDialogHeader>
                     <AlertDialogFooter>
@@ -285,9 +285,9 @@ export default function SubjectDetailPage() {
                       <AlertDialogAction onClick={() => deleteChapter(subject.id, chapter.id)}>Delete</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
-                </AlertDialog>
-              </AccordionContent>
-            </Card>
+                </AccordionContent>
+              </Card>
+            </AlertDialog>
           </AccordionItem>
         ))}
       </Accordion>
