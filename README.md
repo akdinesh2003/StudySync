@@ -1,7 +1,5 @@
 # 🚀 StudySync: Smart Exam Planner for Students
 
-![StudySync Dashboard](https://placehold.co/800x400/21293d/e8e9ec?text=StudySync%20App%20Screenshot)
-
 **StudySync** is a modern, AI-powered web application designed to help students organize their study materials, track their progress, and leverage generative AI to enhance their learning experience.
 
 ---
@@ -78,10 +76,4 @@ Open [http://localhost:9002](http://localhost:9002) with your browser to see the
 
 ## ✍️ Author
 
-This project was created by **[Your Name]**.
-
-- **Portfolio**: [your-link]
-- **GitHub**: [@your-username]
-- **LinkedIn**: [@your-username]
-
----
+AK DINESH   https://github.com/akdinesh2003
