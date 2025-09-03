@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Book, BrainCircuit, CalendarClock, Home, Sparkles } from "lucide-react";
+import { Book, BrainCircuit, CalendarClock, Home, PencilRuler, Sparkles } from "lucide-react";
 import {
   Sidebar,
   SidebarHeader,
@@ -10,13 +10,16 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
+import { ThemeModeToggle } from "@/components/ThemeModeToggle";
 
 const menuItems = [
   { href: "/", label: "Dashboard", icon: Home },
   { href: "/subjects", label: "Subjects", icon: Book },
   { href: "/ai-summary", label: "AI Summary", icon: Sparkles },
   { href: "/break-scheduler", label: "Break Scheduler", icon: CalendarClock },
+  { href: "/practice-quiz", label: "Practice Quiz", icon: PencilRuler },
 ];
 
 export function AppSidebar() {
@@ -53,6 +56,9 @@ export function AppSidebar() {
           ))}
         </SidebarMenu>
       </SidebarContent>
+       <SidebarFooter>
+        <ThemeModeToggle />
+      </SidebarFooter>
     </Sidebar>
   );
 }

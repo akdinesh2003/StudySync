@@ -6,7 +6,7 @@ import { useStudyData } from "@/hooks/use-study-data";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, ArrowRight, Book, Sparkles, CalendarClock, BrainCircuit } from "lucide-react";
+import { PlusCircle, ArrowRight, Book, Sparkles, CalendarClock, BrainCircuit, PencilRuler } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Subject, SubTopic } from "@/lib/types";
 
@@ -137,10 +137,11 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <QuickLink href="/subjects" icon={Book} title="Manage Subjects" description="Add, edit, and organize your study materials."/>
         <QuickLink href="/ai-summary" icon={Sparkles} title="AI Summary" description="Generate summaries and flashcards from text."/>
         <QuickLink href="/break-scheduler" icon={CalendarClock} title="Break Scheduler" description="Get optimal break times for your study sessions."/>
+        <QuickLink href="/practice-quiz" icon={PencilRuler} title="Practice Quiz" description="Test your knowledge with AI-generated quizzes."/>
       </div>
 
       <div>
