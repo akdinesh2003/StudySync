@@ -25,9 +25,10 @@ const OptimalBreakSchedulerOutputSchema = z.object({
   breakSuggestions: z
     .array(z.string())
     .describe(
-      'An array of suggested break times, formatted as sentences. For example: [\n        "Take a 5-minute break at the 25-minute mark.",
-        "Take a 10-minute break at the 50-minute mark.",
-      ]'
+      `An array of suggested break times, formatted as sentences. For example: [
+        "Take a 5-minute break at the 25-minute mark.",
+        "Take a 10-minute break at the 50-minute mark."
+      ]`
     ),
 });
 export type OptimalBreakSchedulerOutput = z.infer<
